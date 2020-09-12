@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.test.ieltsmarkstoband.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_speaking_tips"
+        android:name="com.test.ieltsmarkstoband.ui.Speaking.SpeakingTipsFragment"
+        android:label="@string/menu_speaking_tips"
+        tools:layout="@layout/fragment_speaking_tips" />
+
+    <fragment
+        android:id="@+id/nav_listening_tips"
+        android:name="com.test.ieltsmarkstoband.ui.Listening.ListeningTipsFragment"
+        android:label="@string/menu_listening_tips"
+        tools:layout="@layout/fragment_listening_tips" />
+
+    <fragment
+        android:id="@+id/nav_writing_tips"
+        android:name="com.test.ieltsmarkstoband.ui.Writing.WritingTipsFragment"
+        android:label="@string/menu_writing_tips"
+        tools:layout="@layout/fragment_writing_tips" />
+
+    <fragment
+        android:id="@+id/nav_reading_tips"
+        android:name="com.test.ieltsmarkstoband.ui.Reading.readingTips"
+        android:label="@string/menu_reading_tips"
+        tools:layout="@layout/fragment_reading_tips" />
+
+    <fragment
+        android:id="@+id/nav_share"
+        android:name="com.test.ieltsmarkstoband.ui.share.ShareFragment"
+        android:label="@string/menu_share"
+        tools:layout="@layout/fragment_share" />
+    <fragment
+        android:id="@+id/nav_feedback"
+        android:name="com.test.ieltsmarkstoband.ui.Feedback.FeedbackFragment"
+        android:label="feedback"
+        tools:layout="@layout/feedback_fragment" />
+
+</navigation>

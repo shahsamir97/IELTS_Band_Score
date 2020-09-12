@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "411241179135",
+    "firebase_url": "https://androidrealtimedatabase-92280.firebaseio.com",
+    "project_id": "androidrealtimedatabase-92280",
+    "storage_bucket": "androidrealtimedatabase-92280.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:411241179135:android:825040a9e2926dcf7fa9ca",
+        "android_client_info": {
+          "package_name": "com.samir.ieltsmarkstoband"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "411241179135-utlg1pmf74keaao6brknhn92tid70eog.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.samir.ieltsmarkstoband",
+            "certificate_hash": "2f5c7ccbeed198c308ddc5b48e92e8f282d48f3a"
+          }
+        },
+        {
+          "client_id": "411241179135-p47tfe53bb0jteo33e3reboahnnqv870.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCG3bHRYWxWkTyQ8E3FRUsNIxQuUB6WTxU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "411241179135-p47tfe53bb0jteo33e3reboahnnqv870.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

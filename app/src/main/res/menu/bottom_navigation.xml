@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_reading"
+        android:icon="@drawable/readingmenu"
+        android:title="Reading" />
+    <item
+        android:id="@+id/nav_speaking"
+        android:icon="@drawable/speakingmenu"
+        android:title="Speaking" />
+    <item
+        android:id="@+id/nav_listening"
+        android:icon="@drawable/listenungmenu"
+        android:title="Listening" />
+    <item
+        android:id="@+id/nav_writing"
+        android:icon="@drawable/writingicon"
+        android:title="Writing" />
+    <item
+        android:id="@+id/nav_totalBand"
+        android:icon="@drawable/ic_stars_black_48dp"
+        android:title="Total Band" />
+
+</menu>

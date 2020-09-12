@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:background="@drawable/dialog_shape">
+
+    <TextView
+        android:id="@+id/markingGuide"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:autoLink="web"
+        android:textSize="28dp"
+        android:layout_marginBottom="25dp"
+        android:text="@string/totalBandScore_markingGuide" />
+    <Button
+        android:id="@+id/okButton"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/buttonshape"
+        android:text="@android:string/ok"
+        android:textColor="@color/textColor"
+        android:textSize="28sp"
+        android:textStyle="bold" />
+</LinearLayout>

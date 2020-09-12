@@ -1,0 +1,110 @@
+<resources>
+    <string name="app_name">IELTS Band Score</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_speaking_tips">Speaking Tips</string>
+    <string name="menu_listening_tips">Listening Tips</string>
+    <string name="menu_writing_tips">Writing Tips</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_reading_tips">Reading Tips</string>
+    <string name="general">General Training</string>
+    <string name="academic">Academic</string>
+    <string name="usernameError">This field is require to continue</string>
+    <string name="emailValidityError">Invalid email address</string>
+    <string name="emailEmptyError">This field is required to continue</string>
+    <string name="totalBandScore_markingGuide">
+        You can score whole (e.g., 5.0, 6.0, 7.0) or half (e.g., 5.5, 6.5, 7.5)
+         bands in each part of the test. If you get greater or equal to .25 after decimal point
+         for example 7.25 score will be marge to 7.5. But if you score greater or equal to .75 after
+        decimal point your score will be marge to a whole number for example 6.75 will be 7.
+        For more info visit https://www.britishcouncil.org.tr/en/exam/ielts/calculator
+    </string>
+
+    <string name="listening_tips">
+        <h4>Tips To Follow : </h4> \n \n
+
+        1. In listening test there are 4 sections and within this 4 sections
+        section 1 is the easiest one, section 2 is a bit harder than section.But
+        the remaining 2 sections 3 and 4 is comparatively hard.So you have to ensure that
+        you get 10 out of 10 in both section 1 and 2.It will help you to balance
+        your mark. \n \n
+
+        2. Give more time in practicing section 3 and section 4. When dealing with section 3
+        look at the speakers name carefully and point out what question is demanding from
+        a particular speaker. \n \n
+        3. Get Cambridge IELTS Practice books. This books has been published in many versions try to
+        practice at least 4 latest versions of this book. If you can get all the versions and practice all of them
+        then it\'s very good for you.
+        4. Resources to follow : \n
+            ->Follow IELTS Liz YouTube Channel https://www.youtube.com/user/ieltsliz
+        she has many good tutorials. or visit https://ieltsliz.com/  \n
+        -> Watch English TV series and try your best to follow the dialogues carefully. \n
+        -> Listen to BBC News at least once a day. \n
+        -> Listen to Podcasts. \n
+        These are some cool ways to improve your listening skill in a more efficient way. \n \n
+        ***Live Tips by professionals Coming Soon.
+        *Keep updating the app to get the best experience and features.
+    </string>
+
+    <string name="reading_tips">
+        <h4>Tips To Follow : </h4> \n \n
+
+        1. Time management is a big challenge in Reading test. So you have to optimize your time be very carefully
+        . Follow Tony Buzan\'s Speed Reading Book to improve your reading speed. This book has many amazing trick
+        that can help you to read 10x faster than before. Visit this link to download free pdf of Tony Buzan\'s speed reading book
+        https://epdf.pub/the-speed-reading-book.html \n\n
+        2. Read articles of New York Times Newspaper. Here is the link https://www.nytimes.com/  \n\n
+        3.In this era of Internet there is no limitation of resource you can use to acquire knowledge. Anything you
+        want to know just search on Google and Youtube has a lot of useful videos on IELTS so you can find any kind of
+        video on IELTS. \n \n
+        ***Live Tips by professionals Coming Soon. \n
+        *Keep updating the app to get the best experience and features.
+    </string>
+
+    <string name="writing_tips">
+       <h4>Tips To Follow : </h4>
+        \n\n
+It is a good idea to study high quality writing styles in different formats by looking at newspapers
+        or short articles in general-interest magazines on a variety of subjects.
+In magazines or newspapers, it can be useful to: \n
+=>underline useful vocabulary items \n
+=>underline and highlight grammar structures \n
+=>underline linking devices between sentences and paragraphs \n
+=>apply what you have learned to your own writing. \n \n
+
+Practice for both of the writing tasks. Looking at good quality examples can help. \n
+
+The Financial Times, for example, often provides tables and diagrams to illustrate texts on such
+        things as the stock exchange which can serve as a useful model for Task 1
+        of the Academic Writing test. Short articles on topical subjects can be found in publications
+        such as The Economist or, at a simpler level, free tabloids used by commuters going to and from work. \n \n
+
+        ***Live Tips by professionals Coming Soon. \n
+        *Keep updating the app to get the best experience and features. \n
+    </string>
+
+    <string name="speaking_tips">
+        <h4>Tips To Follow : </h4>
+        \n\n
+        1. Start taking in English inside home and outside as well. If it\'s hard to do
+        get a friend with whom you can speak in English daily. \n
+        2. At home record your speaking with your phone and listen to it carefully
+        find out the weak points and try to get over it. \n
+        3. When speaking make sure you\'re using different sentence structures such as
+        Simple, Complex and Compound. \n
+        4. Try not to stammer when speaking it will reduce your score. \n \n
+
+        ***Live Tips by professionals Coming Soon. \n
+        *Keep updating the app to get the best experience and features. \n
+    </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+</resources>

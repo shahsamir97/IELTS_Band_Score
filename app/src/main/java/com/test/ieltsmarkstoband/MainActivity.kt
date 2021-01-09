@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Patterns
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -23,6 +24,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.messaging.FirebaseMessaging
 import com.test.ieltsmarkstoband.ui.home.HomeFragment
 
@@ -49,6 +51,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
 
         //cloud Messaging Channel Setup
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -107,6 +110,16 @@ class MainActivity : AppCompatActivity() {
         //setting header info
     }
 
+    override fun onStart() {
+        super.onStart()
+        val headerView = navigationView!!.getHeaderView(0)
+        val nameTextView = headerView.findViewById<TextView>(R.id.header_name)
+        val emailTextView = headerView.findViewById<TextView>(R.id.header_email)
+
+        nameTextView.text = FirebaseAuth.getInstance().currentUser?.displayName ?: "";
+        emailTextView.text = FirebaseAuth.getInstance().currentUser?.email ?: "";
+    }
+
     //verify User name
     private fun isUserNameValid(text: EditText): Boolean {
         return !TextUtils.isEmpty(text.text.toString())
@@ -129,9 +142,17 @@ class MainActivity : AppCompatActivity() {
                 || super.onSupportNavigateUp())
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.logout){
+            FirebaseAuth.getInstance().signOut();
+            startActivity(Intent(this, LoginAndRegister::class.java))
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun onResume() {
         super.onResume()
-        val sharedPreferences = getSharedPreferences("ModulePreference", Context.MODE_PRIVATE)
+        /*val sharedPreferences = getSharedPreferences("ModulePreference", Context.MODE_PRIVATE)
         userName = sharedPreferences.getString("username", "")
         userEmail = sharedPreferences.getString("useremail", "")
         val headerView = navigationView!!.getHeaderView(0)
@@ -188,18 +209,18 @@ class MainActivity : AppCompatActivity() {
         } else {
             nameTextView.text = userName
             emailTextView.text = userEmail
-        }
+        }*/
     }
 
     override fun onPause() {
         super.onPause()
-        //saving User Mode
+        /*//saving User Mode
         val sharedPreferences = getSharedPreferences("ModulePreference", Context.MODE_PRIVATE)
         val myEdidts = sharedPreferences.edit()
         myEdidts.putString("username", userName)
         myEdidts.putString("useremail", userEmail)
         myEdidts.putInt("switchMode", switchMode)
-        myEdidts.commit()
+        myEdidts.commit()*/
     }
 
     fun readingModule(view: View?) {

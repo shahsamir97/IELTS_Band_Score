@@ -9,8 +9,16 @@
         android:roundIcon="@mipmap/launcher_round_image"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SpeakingActivity"
-            android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".LoginAndRegister">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SpeakingActivity"
+            android:parentActivityName=".MainActivity" />
 
         <service
             android:name=".MyService"
@@ -68,13 +76,9 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
     </application>

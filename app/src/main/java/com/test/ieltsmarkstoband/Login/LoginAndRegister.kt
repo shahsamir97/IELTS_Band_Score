@@ -18,6 +18,7 @@ class LoginAndRegister : AppCompatActivity() {
 
         triggerFirebaseAuthUI()
 
+        this.supportActionBar?.hide()
     }
 
 
@@ -48,7 +49,7 @@ class LoginAndRegister : AppCompatActivity() {
                 val user = FirebaseAuth.getInstance().currentUser
                 startActivity(Intent(this, MainActivity::class.java))
             } else {
-                triggerFirebaseAuthUI()
+              //  triggerFirebaseAuthUI()
                 Toast.makeText(this, "Failed to Sign In", Toast.LENGTH_SHORT).show();
                 // Sign in failed. If response is null the user canceled the
                 // sign-in flow using the back button. Otherwise check
@@ -56,6 +57,11 @@ class LoginAndRegister : AppCompatActivity() {
                 // ...
             }
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        supportActionBar?.show()
     }
 
 }

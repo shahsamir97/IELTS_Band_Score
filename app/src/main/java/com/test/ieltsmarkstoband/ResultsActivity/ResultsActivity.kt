@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import java.util.*
 
@@ -32,8 +33,9 @@ class ResultsActivity : AppCompatActivity() {
         //Back button setup
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         val sharedPreferences2 = getSharedPreferences("ModulePreference", Context.MODE_PRIVATE)
-        userEmail = sharedPreferences2.getString("useremail", "")
-        userName = sharedPreferences2.getString("username", "")
+        val currentUser = FirebaseAuth.getInstance().currentUser;
+        userEmail = currentUser?.email //sharedPreferences2.getString("useremail", "")
+        userName = currentUser?.displayName //sharedPreferences2.getString("username", "")
         val temp = userEmail!!.split("@".toRegex()).toTypedArray()
         val temp2 = temp[1].split("\\.".toRegex()).toTypedArray()
         userEmail = temp[0] + temp2[0]

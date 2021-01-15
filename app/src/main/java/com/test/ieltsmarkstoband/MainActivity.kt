@@ -142,13 +142,6 @@ class MainActivity : AppCompatActivity() {
                 || super.onSupportNavigateUp())
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.logout){
-            FirebaseAuth.getInstance().signOut();
-            startActivity(Intent(this, LoginAndRegister::class.java))
-        }
-        return super.onOptionsItemSelected(item)
-    }
 
     override fun onResume() {
         super.onResume()

@@ -45,5 +45,10 @@
         android:name="com.test.ieltsmarkstoband.ui.Feedback.FeedbackFragment"
         android:label="feedback"
         tools:layout="@layout/feedback_fragment" />
+    <fragment
+        android:id="@+id/logout2"
+        android:name="com.test.ieltsmarkstoband.ui.Logout"
+        android:label="fragment_logout"
+        tools:layout="@layout/fragment_logout" />
 
 </navigation>

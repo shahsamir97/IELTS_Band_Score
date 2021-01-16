@@ -14,6 +14,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.auth.FirebaseAuth
 
 class ReadingActivity : AppCompatActivity() {
 
@@ -40,8 +41,9 @@ class ReadingActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         val sharedPreferences2 = getSharedPreferences("ModulePreference", Context.MODE_PRIVATE)
-        userEmail = sharedPreferences2.getString("useremail", "")
-        userName = sharedPreferences2.getString("username", "")
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        userEmail = currentUser?.email //sharedPreferences2.getString("useremail", "")
+        userName = currentUser?.displayName //sharedPreferences2.getString("username", "")
         val temp = userEmail!!.split("@".toRegex()).toTypedArray()
         val temp2 = temp[1].split("\\.".toRegex()).toTypedArray()
         userEmail = temp[0] + temp2[0]
@@ -53,13 +55,8 @@ class ReadingActivity : AppCompatActivity() {
         title = "Reading"
         viewmodel = ViewModelProviders.of(this).get(ReadingViewModel::class.java)
 
-        //Admob Section
-        /*
-        interstitialAd = new InterstitialAd(this);
-        interstitialAd.setAdUnitId("ca-app-pub-8179519608335020/2768453125");
-        interstitialAd.loadAd(new AdRequest.Builder().build());
 
-         */
+
         //ends
         val intent = intent
         val bundle = intent.extras

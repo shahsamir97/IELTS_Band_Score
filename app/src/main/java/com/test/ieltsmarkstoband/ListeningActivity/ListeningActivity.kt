@@ -14,6 +14,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.auth.FirebaseAuth
 
 class ListeningActivity : AppCompatActivity() {
 
@@ -41,8 +42,9 @@ class ListeningActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         val sharedPreferences2 = getSharedPreferences("ModulePreference", Context.MODE_PRIVATE)
-        userEmail = sharedPreferences2.getString("useremail", "")
-        userName = sharedPreferences2.getString("username", "")
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        userEmail = currentUser?.email //sharedPreferences2.getString("useremail", "")
+        userName = currentUser?.displayName
         val temp = userEmail!!.split("@".toRegex()).toTypedArray()
         val temp2 = temp[1].split("\\.".toRegex()).toTypedArray()
         userEmail = temp[0] + temp2[0]

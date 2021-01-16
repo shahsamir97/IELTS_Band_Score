@@ -18,7 +18,7 @@
         <TextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
-            android:layout_height="49dp"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Total Band Score"
             android:textColor="@color/colorPrimary"
@@ -32,14 +32,14 @@
         <Button
             android:id="@+id/button2"
             android:layout_width="wrap_content"
-            android:layout_height="28dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="15dp"
             android:background="@drawable/buttonshape"
             android:onClick="showMarkingGuide"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
-            android:text="See Marking Guide"
-          android:layout_gravity="center"
-            android:layout_marginBottom="15dp"/>
+            android:text="See Marking Guide" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/section1MarkLayout"
@@ -123,8 +123,8 @@
 
         <Button
             android:id="@+id/materialButton2"
-            android:layout_width="138dp"
-            android:layout_height="52dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@drawable/buttonshape"
             android:onClick="calculate"
             android:text="Calculate"

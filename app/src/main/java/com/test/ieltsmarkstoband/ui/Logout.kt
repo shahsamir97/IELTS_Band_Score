@@ -34,6 +34,7 @@ class Logout : Fragment() {
         }
 
          FirebaseAuth.getInstance().signOut();
+        activity?.finish()
         startActivity(Intent(context, LoginAndRegister::class.java))
     }
 

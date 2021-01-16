@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         mAppBarConfiguration = AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_speaking_tips, R.id.nav_listening_tips,
-                R.id.nav_writing_tips, R.id.nav_reading_tips, R.id.nav_share, R.id.nav_feedback)
+                R.id.nav_writing_tips, R.id.nav_reading_tips, R.id.nav_share, R.id.nav_feedback, R.id.logout2)
                 .setDrawerLayout(drawer)
                 .build()
         val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
@@ -207,13 +207,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        /*//saving User Mode
+        //saving User Mode
         val sharedPreferences = getSharedPreferences("ModulePreference", Context.MODE_PRIVATE)
         val myEdidts = sharedPreferences.edit()
-        myEdidts.putString("username", userName)
-        myEdidts.putString("useremail", userEmail)
+       /* myEdidts.putString("username", userName)
+        myEdidts.putString("useremail", userEmail)*/
         myEdidts.putInt("switchMode", switchMode)
-        myEdidts.commit()*/
+        myEdidts.commit()
     }
 
     fun readingModule(view: View?) {

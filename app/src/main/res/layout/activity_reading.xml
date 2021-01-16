@@ -30,7 +30,7 @@
         <Button
             android:id="@+id/button2"
             android:layout_width="wrap_content"
-            android:layout_height="28dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/buttonshape"
             android:onClick="showMarkingGuide"
             android:paddingStart="10dp"
@@ -144,8 +144,8 @@
 
         <Button
             android:id="@+id/materialButton2"
-            android:layout_width="138dp"
-            android:layout_height="52dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@drawable/buttonshape"
             android:onClick="calculate"
             android:text="Calculate"

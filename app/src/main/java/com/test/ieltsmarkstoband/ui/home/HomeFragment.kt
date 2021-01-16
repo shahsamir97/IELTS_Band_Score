@@ -31,7 +31,6 @@ class HomeFragment : Fragment() {
                 moduleSwitch.setText("General Training")
                 MainActivity.switchMode = 0
             }
-            Log.i("TAG", "")
         })
         return root
     }

@@ -68,7 +68,7 @@ class TotalBandScoreActivity : AppCompatActivity() {
         adRepeatCount = sharedPreferences?.getInt("count", 0)!!;
 
         var adRequest = AdRequest.Builder().build()
-        InterstitialAd.load(this, "ca-app-pub-3940256099942544/1033173712" ,adRequest,object : InterstitialAdLoadCallback() {
+        InterstitialAd.load(this, "ca-app-pub-7507383926384277/5543997141" ,adRequest,object : InterstitialAdLoadCallback() {
             override fun onAdFailedToLoad(adError: LoadAdError) {
                 mInterstitialAd = null
             }

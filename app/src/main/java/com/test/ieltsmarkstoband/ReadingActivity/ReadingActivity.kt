@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -13,12 +14,22 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 
 class ReadingActivity : AppCompatActivity() {
 
     private lateinit var viewmodel: ReadingViewModel
+
+    //ad section
+    private var mInterstitialAd: InterstitialAd? = null
+    private var adRepeatCount = 0;
+
 
     //Database instancce
     var appDatabase = Database()
@@ -56,8 +67,24 @@ class ReadingActivity : AppCompatActivity() {
         viewmodel = ViewModelProviders.of(this).get(ReadingViewModel::class.java)
 
 
+        //ads initialization
+        //Admob Section
+        val sharedPreferences = getSharedPreferences("adcount", Context.MODE_PRIVATE)
+        adRepeatCount = sharedPreferences?.getInt("count", 0)!!;
 
+        var adRequest = AdRequest.Builder().build()
+        InterstitialAd.load(this, "ca-app-pub-3940256099942544/1033173712" ,adRequest,object : InterstitialAdLoadCallback() {
+            override fun onAdFailedToLoad(adError: LoadAdError) {
+                mInterstitialAd = null
+            }
+
+            override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                mInterstitialAd = interstitialAd
+            }
+        });
         //ends
+
+
         val intent = intent
         val bundle = intent.extras
         moduleMode = bundle!!.getInt("module")
@@ -321,14 +348,10 @@ class ReadingActivity : AppCompatActivity() {
                         //ends
 
                         //Admob section
-                        /*
-                        if (interstitialAd.isLoaded()) {
-                            interstitialAd.show();
-                        } else {
-                            Log.i("Admob :", "Failed to load Add");
+                        if (mInterstitialAd != null && adRepeatCount < 5) {
+                            mInterstitialAd!!.show(this)
+                            adRepeatCount++
                         }
-
-                         */
                         //ends
                     } else {
                         val score = convertMarksToBandScoreAcademic(total)
@@ -338,14 +361,11 @@ class ReadingActivity : AppCompatActivity() {
                         //Storing user data in database
                         appDatabase.insertData(score, mark1, mark2, mark3, "", Integer.toString(total), userEmail, userName, "Reading")
                         //ends
-                        /*
-                        if (interstitialAd.isLoaded()) {
-                            interstitialAd.show();
-                        } else {
-                            Log.d("TAG", "The interstitial wasn't loaded yet.");
+                        //Admob section
+                        if (mInterstitialAd != null && adRepeatCount < 5) {
+                            mInterstitialAd!!.show(this)
+                            adRepeatCount++
                         }
-
-                         */
                         //ends here
                     }
                 } else {
@@ -374,14 +394,10 @@ class ReadingActivity : AppCompatActivity() {
                         //ends
 
                         //Admob section
-                        /*
-                        if (interstitialAd.isLoaded()) {
-                            interstitialAd.show();
-                        } else {
-                            Log.d("TAG", "The interstitial wasn't loaded yet.");
+                        if (mInterstitialAd != null && adRepeatCount < 5) {
+                            mInterstitialAd!!.show(this)
+                            adRepeatCount++
                         }
-
-                         */
                         //ends here
                     } else {
                         val score = convertMarksToBandScoreAcademic(total)
@@ -407,5 +423,13 @@ class ReadingActivity : AppCompatActivity() {
             bandScoreTextView!!.text = "Fields are empty!"
             //tipsTextView.setText("Check the marks inputs.Do not leave any filed empty");
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        val sharedPreferences = getSharedPreferences("adcount", Context.MODE_PRIVATE)
+        val myEdidts = sharedPreferences?.edit()
+        myEdidts?.putInt("count", adRepeatCount)
+        myEdidts?.apply()
     }
 }

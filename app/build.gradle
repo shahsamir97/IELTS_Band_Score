@@ -8,8 +8,8 @@ android {
         applicationId "com.samir.ieltsmarkstoband"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 9
-        versionName "3.1"
+        versionCode 10
+        versionName "3.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -31,6 +31,9 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.1.0'
     implementation 'androidx.navigation:navigation-ui:2.1.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+    //ads
+    implementation 'com.google.android.gms:play-services-ads:19.7.0'
+
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

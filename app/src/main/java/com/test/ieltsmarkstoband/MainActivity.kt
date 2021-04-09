@@ -7,26 +7,27 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.util.Patterns
 import android.view.Menu
-import android.view.MenuItem
 import android.view.View
-import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import com.google.android.gms.ads.MobileAds
 import com.google.android.material.navigation.NavigationView
-import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.messaging.FirebaseMessaging
 import com.test.ieltsmarkstoband.ui.home.HomeFragment
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+
 
 class MainActivity : AppCompatActivity() {
     private var mAppBarConfiguration: AppBarConfiguration? = null
@@ -41,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     var navigationView: NavigationView? = null
 
 
-    companion object{
+    companion object {
         var switchMode = 0
 
     }
@@ -53,7 +54,22 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        //cloud Messaging Channel Setup
+//ad count
+        val current = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("dd")
+        val formatted = current.format(formatter)
+
+        val sharedPreferences = getSharedPreferences("adcount", Context.MODE_PRIVATE)
+        var date = sharedPreferences.getString("date", null)
+        if (date == null || date != formatted){
+            val myEdidts = sharedPreferences.edit()
+            myEdidts.putString("date", formatted)
+            myEdidts.putInt("count", 0)
+            myEdidts.apply()
+        }
+        //ends
+
+//cloud Messaging Channel Setup
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel("MyNotifications",
                     "MyNotifications", NotificationManager.IMPORTANCE_DEFAULT)
@@ -69,28 +85,22 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
 
-        //Admob initialization
-        /*
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
+//Admob initialization
+        MobileAds.initialize(this) { }
 
-            }
-        });
-         */
 
-        //Navigation Drawer
+//Navigation Drawer
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
         navigationView = findViewById(R.id.nav_view)
-        //Dialog setup ends here
+//Dialog setup ends here
 
-        //Toolbar setup
+//Toolbar setup
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
 
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+// Passing each menu ID as a set of Ids because each
+// menu should be considered as top level destinations.
         mAppBarConfiguration = AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_speaking_tips, R.id.nav_listening_tips,
                 R.id.nav_writing_tips, R.id.nav_reading_tips, R.id.nav_share, R.id.nav_feedback, R.id.logout2)
@@ -100,14 +110,14 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration!!)
         navigationView?.let { NavigationUI.setupWithNavController(it, navController) }
 
-        //Home fragment switch button state
+//Home fragment switch button state
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         val homeFragment = HomeFragment()
         fragmentTransaction.add(0, homeFragment)
         fragmentTransaction.commit()
 
-        //setting header info
+//setting header info
     }
 
     override fun onStart() {
@@ -131,7 +141,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
+// Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
         return true
     }
@@ -145,73 +155,73 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        /*val sharedPreferences = getSharedPreferences("ModulePreference", Context.MODE_PRIVATE)
-        userName = sharedPreferences.getString("username", "")
-        userEmail = sharedPreferences.getString("useremail", "")
-        val headerView = navigationView!!.getHeaderView(0)
-        val nameTextView = headerView.findViewById<TextView>(R.id.header_name)
-        val emailTextView = headerView.findViewById<TextView>(R.id.header_email)
+/*val sharedPreferences = getSharedPreferences("ModulePreference", Context.MODE_PRIVATE)
+userName = sharedPreferences.getString("username", "")
+userEmail = sharedPreferences.getString("useremail", "")
+val headerView = navigationView!!.getHeaderView(0)
+val nameTextView = headerView.findViewById<TextView>(R.id.header_name)
+val emailTextView = headerView.findViewById<TextView>(R.id.header_email)
 
-        //Input Dialog for user to get the User name and email
-        val mView = layoutInflater.inflate(R.layout.dialog_fragment, null)
-        val nameTextInput = mView.findViewById<EditText>(R.id.nameEditText)
-        val emailTextInput = mView.findViewById<EditText>(R.id.emailEditText)
-        val nameInputLayout: TextInputLayout = mView.findViewById(R.id.nameInputLayout)
-        val emailInputLayout: TextInputLayout = mView.findViewById(R.id.emailInputLayout)
-        val okButton = mView.findViewById<Button>(R.id.ok_button)
-        if (userName!!.equals("") && userEmail!!.equals("")) {
+//Input Dialog for user to get the User name and email
+val mView = layoutInflater.inflate(R.layout.dialog_fragment, null)
+val nameTextInput = mView.findViewById<EditText>(R.id.nameEditText)
+val emailTextInput = mView.findViewById<EditText>(R.id.emailEditText)
+val nameInputLayout: TextInputLayout = mView.findViewById(R.id.nameInputLayout)
+val emailInputLayout: TextInputLayout = mView.findViewById(R.id.emailInputLayout)
+val okButton = mView.findViewById<Button>(R.id.ok_button)
+if (userName!!.equals("") && userEmail!!.equals("")) {
 
-            //Setting up Username and email
-            val alert = AlertDialog.Builder(this)
-            alert.setView(mView)
-            val alertDialog = alert.create()
-            alertDialog.setCanceledOnTouchOutside(false)
-            alertDialog.show()
-            okButton.setOnClickListener(object : View.OnClickListener {
-                override fun onClick(v: View) {
-                    var nameValid = false
-                    var emailValid = false
-                    if (isUserNameValid(nameTextInput)) {
-                        nameTextView.text = nameTextInput.text.toString()
-                        nameValid = true
-                        nameInputLayout.error = null
-                    } else {
-                        nameInputLayout.error = resources.getString(R.string.usernameError)
-                        nameValid = false
-                    }
-                    if (!TextUtils.isEmpty(emailTextInput.text.toString())) {
-                        if (isEmailValid(emailTextInput)) {
-                            emailTextView.text = emailTextInput.text.toString()
-                            emailInputLayout.error = null
-                            emailValid = true
-                        } else {
-                            emailInputLayout.error = resources.getString(R.string.emailValidityError)
-                            emailValid = false
-                        }
-                    } else {
-                        emailInputLayout.error = resources.getString(R.string.emailEmptyError)
-                        emailValid = false
-                    }
-                    if (nameValid && emailValid) {
-                        userName = nameTextInput.text.toString()
-                        userEmail = emailTextInput.text.toString()
-                        alertDialog.dismiss()
-                    }
+    //Setting up Username and email
+    val alert = AlertDialog.Builder(this)
+    alert.setView(mView)
+    val alertDialog = alert.create()
+    alertDialog.setCanceledOnTouchOutside(false)
+    alertDialog.show()
+    okButton.setOnClickListener(object : View.OnClickListener {
+        override fun onClick(v: View) {
+            var nameValid = false
+            var emailValid = false
+            if (isUserNameValid(nameTextInput)) {
+                nameTextView.text = nameTextInput.text.toString()
+                nameValid = true
+                nameInputLayout.error = null
+            } else {
+                nameInputLayout.error = resources.getString(R.string.usernameError)
+                nameValid = false
+            }
+            if (!TextUtils.isEmpty(emailTextInput.text.toString())) {
+                if (isEmailValid(emailTextInput)) {
+                    emailTextView.text = emailTextInput.text.toString()
+                    emailInputLayout.error = null
+                    emailValid = true
+                } else {
+                    emailInputLayout.error = resources.getString(R.string.emailValidityError)
+                    emailValid = false
                 }
-            })
-        } else {
-            nameTextView.text = userName
-            emailTextView.text = userEmail
-        }*/
+            } else {
+                emailInputLayout.error = resources.getString(R.string.emailEmptyError)
+                emailValid = false
+            }
+            if (nameValid && emailValid) {
+                userName = nameTextInput.text.toString()
+                userEmail = emailTextInput.text.toString()
+                alertDialog.dismiss()
+            }
+        }
+    })
+} else {
+    nameTextView.text = userName
+    emailTextView.text = userEmail
+}*/
     }
 
     override fun onPause() {
         super.onPause()
-        //saving User Mode
+//saving User Mode
         val sharedPreferences = getSharedPreferences("ModulePreference", Context.MODE_PRIVATE)
         val myEdidts = sharedPreferences.edit()
-       /* myEdidts.putString("username", userName)
-        myEdidts.putString("useremail", userEmail)*/
+/* myEdidts.putString("username", userName)
+myEdidts.putString("useremail", userEmail)*/
         myEdidts.putInt("switchMode", switchMode)
         myEdidts.commit()
     }

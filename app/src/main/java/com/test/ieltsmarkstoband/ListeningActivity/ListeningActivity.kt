@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -13,12 +14,23 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 
 class ListeningActivity : AppCompatActivity() {
 
     private lateinit var viewModel: ListeningViewModel
+    //Adview
+    private var mInterstitialAd: InterstitialAd? = null
+    private var adRepeatCount = 0;
+
+    private final var TAG = "MainActivity"
+
+
 
     var score = 0.0
     lateinit var section1: EditText
@@ -43,7 +55,7 @@ class ListeningActivity : AppCompatActivity() {
         super.onStart()
         val sharedPreferences2 = getSharedPreferences("ModulePreference", Context.MODE_PRIVATE)
         val currentUser = FirebaseAuth.getInstance().currentUser
-        userEmail = currentUser?.email //sharedPreferences2.getString("useremail", "")
+        userEmail = currentUser?.email
         userName = currentUser?.displayName
         val temp = userEmail!!.split("@".toRegex()).toTypedArray()
         val temp2 = temp[1].split("\\.".toRegex()).toTypedArray()
@@ -56,13 +68,24 @@ class ListeningActivity : AppCompatActivity() {
         title = "Listening"
 
         viewModel = ViewModelProviders.of(this).get(ListeningViewModel::class.java)
-        //Admob Section
-        /*
-        interstitialAd = new InterstitialAd(this);
-        interstitialAd.setAdUnitId("ca-app-pub-8179519608335020/9525433166");
-        interstitialAd.loadAd(new AdRequest.Builder().build());
 
-         */
+
+        //Admob Section
+        val sharedPreferences = getSharedPreferences("adcount", Context.MODE_PRIVATE)
+        adRepeatCount = sharedPreferences?.getInt("count", 0)!!;
+
+        var adRequest = AdRequest.Builder().build()
+        InterstitialAd.load(this, "ca-app-pub-3940256099942544/1033173712" ,adRequest,object : InterstitialAdLoadCallback() {
+            override fun onAdFailedToLoad(adError: LoadAdError) {
+              mInterstitialAd = null
+            }
+
+            override fun onAdLoaded(interstitialAd: InterstitialAd) {
+              mInterstitialAd = interstitialAd
+            }
+        });
+
+
         //ends
 
 
@@ -336,15 +359,15 @@ class ListeningActivity : AppCompatActivity() {
                     //Storing UserData in Database
                     appDatabase.insertData(score, mark1, mark2, mark3, mark4, Integer.toString(total), userEmail, userName, "Listening")
 
+
                     //Admob section
-                    /*
-                    if (interstitialAd.isLoaded()) {
-                        interstitialAd.show();
+                    if (mInterstitialAd != null && adRepeatCount < 5) {
+                        mInterstitialAd!!.show(this)
+                        adRepeatCount++
                     } else {
-                        Log.d("TAG", "The interstitial wasn't loaded yet.");
+                        Log.i(TAG, "Ad not loaded")
                     }
 
-                     */
                     //ends here
                 } else {
                     bandScoreTextView!!.textSize = 24f
@@ -373,14 +396,13 @@ class ListeningActivity : AppCompatActivity() {
                     //ends
 
                     //Admob section
-                    /*
-                    if (interstitialAd.isLoaded()) {
-                        interstitialAd.show();
+                    if (mInterstitialAd != null && adRepeatCount < 5) {
+                        mInterstitialAd!!.show(this)
+                        adRepeatCount++
                     } else {
-                        Log.d("TAG", "The interstitial wasn't loaded yet.");
+                        Log.i(TAG, adRepeatCount.toString())
                     }
 
-                     */
                     //ends here
                 } else {
                     bandScoreTextView!!.textSize = 24f
@@ -413,5 +435,13 @@ class ListeningActivity : AppCompatActivity() {
         alertDialog.setCanceledOnTouchOutside(false)
         alertDialog.show()
         okButton.setOnClickListener { alertDialog.dismiss() }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        val sharedPreferences = getSharedPreferences("adcount", Context.MODE_PRIVATE)
+        val myEdidts = sharedPreferences?.edit()
+        myEdidts?.putInt("count", adRepeatCount)
+        myEdidts?.apply()
     }
 }

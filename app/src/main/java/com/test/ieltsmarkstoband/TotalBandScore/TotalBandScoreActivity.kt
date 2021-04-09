@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -13,12 +14,20 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 
 class TotalBandScoreActivity : AppCompatActivity() {
 
     private lateinit var viewModel: TotalBandScoreViewModel
+
+    //ads section
+    private var mInterstitialAd: InterstitialAd? = null
+    private var adRepeatCount = 0;
 
     var bandScore: Double? = null
     var readingMark: EditText? = null
@@ -53,11 +62,22 @@ class TotalBandScoreActivity : AppCompatActivity() {
 
         viewModel = ViewModelProviders.of(this).get(TotalBandScoreViewModel::class.java)
 
-        /*//Admob Section
-        interstitialAd = new InterstitialAd(this);
-        interstitialAd.setAdUnitId("ca-app-pub-8179519608335020/1542360731");
-        interstitialAd.loadAd(new AdRequest.Builder().build());
-        //ends*/
+        //ads initialization
+        //Admob Section
+        val sharedPreferences = getSharedPreferences("adcount", Context.MODE_PRIVATE)
+        adRepeatCount = sharedPreferences?.getInt("count", 0)!!;
+
+        var adRequest = AdRequest.Builder().build()
+        InterstitialAd.load(this, "ca-app-pub-3940256099942544/1033173712" ,adRequest,object : InterstitialAdLoadCallback() {
+            override fun onAdFailedToLoad(adError: LoadAdError) {
+                mInterstitialAd = null
+            }
+
+            override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                mInterstitialAd = interstitialAd
+            }
+        });
+        //ends
 
         //Back Button setup
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -203,11 +223,10 @@ class TotalBandScoreActivity : AppCompatActivity() {
                     //Storing User Data in database
                     appDatabase.insertData(result, mark1, mark2, mark3, mark4, "", userEmail, userName, "Total Band Scores")
 
-                    /* //Admob section
-                    if (interstitialAd.isLoaded()) {
-                        interstitialAd.show();
-                    } else {
-                        Log.d("TAG", "The interstitial wasn't loaded yet.");
+                    //Admob section
+                    if (mInterstitialAd != null && adRepeatCount < 5) {
+                        mInterstitialAd!!.show(this)
+                        adRepeatCount++
                     }
                     //ends here*/
                 } else {
@@ -222,5 +241,13 @@ class TotalBandScoreActivity : AppCompatActivity() {
             scoreTextView!!.textSize = 24f
             scoreTextView!!.text = "Wrong Input! Enter all Band Scores."
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        val sharedPreferences = getSharedPreferences("adcount", Context.MODE_PRIVATE)
+        val myEdidts = sharedPreferences?.edit()
+        myEdidts?.putInt("count", adRepeatCount)
+        myEdidts?.apply()
     }
 }

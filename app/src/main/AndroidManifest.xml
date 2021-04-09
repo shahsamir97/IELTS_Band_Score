@@ -11,10 +11,13 @@
         android:roundIcon="@mipmap/launcher_round_image"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-7507383926384277~5142720668"/>
+
         <activity android:name=".LoginAndRegister">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -56,9 +59,6 @@
         <activity
             android:name=".TotalBandScoreActivity"
             android:parentActivityName=".MainActivity" /> <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-8179519608335020~7396833975" />
 
         <activity
             android:name=".WritingActivity"
